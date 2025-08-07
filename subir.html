@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestión de Archivos</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css" />
+  <style>
+    :root {
+      --bg-color: #1f242d;
+      --second-bg-color: #323946;
+      --text-color: #fff;
+      --main-color: #0ef;
+    }
+
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .heading {
+      text-align: center;
+      padding: 1rem;
+    }
+
+    .heading span {
+      color: var(--main-color);
+    }
+
+    .basededatos-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem;
+      padding: 1rem;
+    }
+
+    .basededatos-box {
+      background: var(--second-bg-color);
+      padding: 1rem;
+      border-radius: 8px;
+      width: 250px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+    }
+
+    .basededatos-box i {
+      font-size: 2rem;
+      color: var(--main-color);
+    }
+
+    .btn {
+      background: var(--main-color);
+      color: var(--bg-color);
+      padding: 0.4rem 1rem;
+      text-decoration: none;
+      border-radius: 5px;
+      display: inline-block;
+    }
+
+    .btn:hover {
+      background: #00c8ff;
+    }
+
+    .acciones {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    #agregarBtn {
+      margin: 1rem auto;
+      display: block;
+      background: var(--main-color);
+      border: none;
+      padding: 0.6rem 1.2rem;
+      color: var(--bg-color);
+      border-radius: 8px;
+      font-weight: bold;
+    }
+
+    .modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.7);
+      display: none;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background: var(--second-bg-color);
+      padding: 2rem;
+      border-radius: 10px;
+      width: 90%;
+      max-width: 400px;
+    }
+
+    .modal-content h3 {
+      margin-top: 0;
+    }
+
+    .modal-content input,
+    .modal-content textarea {
+      width: 100%;
+      padding: 0.5rem;
+      margin-bottom: 1rem;
+      border-radius: 4px;
+      border: none;
+    }
+
+    .modal-content .btn {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<section class="basededatos" id="basededatos">
+  <h2 class="heading">Mis <span>Archivos</span></h2>
+
+  <button id="agregarBtn">+ Agregar Archivo</button>
+
+  <div class="basededatos-container" id="archivos-container">
+    <!-- Aquí se cargarán los archivos dinámicamente -->
+  </div>
+</section>
+
+<!-- Modal Agregar -->
+<div class="modal" id="modalAgregar">
+  <div class="modal-content">
+    <h3>Agregar nuevo archivo</h3>
+    <input type="text" id="tituloNuevo" placeholder="Título" />
+    <textarea id="descripcionNuevo" placeholder="Descripción"></textarea>
+    <input type="file" id="archivoNuevo" />
+    <button class="btn" onclick="agregarArchivo()">Agregar</button>
+    <button class="btn" onclick="cerrarModal('modalAgregar')">Cancelar</button>
+  </div>
+</div>
+
+<!-- Modal Editar -->
+<div class="modal" id="modalEditar">
+  <div class="modal-content">
+    <h3>Editar archivo</h3>
+    <input type="text" id="editarTitulo" />
+    <textarea id="editarDescripcion"></textarea>
+    <button class="btn" onclick="guardarEdicion()">Guardar</button>
+    <button class="btn" onclick="cerrarModal('modalEditar')">Cancelar</button>
+  </div>
+</div>
+
+<script>
+  let archivos = [];
+  let archivoEditando = null;
+
+  document.getElementById('agregarBtn').addEventListener('click', () => {
+    document.getElementById('modalAgregar').style.display = 'flex';
+  });
+
+  function cerrarModal(id) {
+    document.getElementById(id).style.display = 'none';
+  }
+
+  function renderizarArchivos() {
+    const contenedor = document.getElementById('archivos-container');
+    contenedor.innerHTML = '';
+    archivos.forEach((archivo, index) => {
+      const box = document.createElement('div');
+      box.className = 'basededatos-box';
+      box.innerHTML = `
+        <i class='bx bxs-file-pdf'></i>
+        <h3>${archivo.titulo}</h3>
+        <p>${archivo.descripcion}</p>
+        <div class="acciones">
+          <a href="${archivo.url}" target="_blank" class="btn">Ver</a>
+          <a href="${archivo.url}" download class="btn">Descargar</a>
+        </div>
+        <div class="acciones">
+          <button class="btn" onclick="editarArchivo(${index})">Editar</button>
+          <button class="btn" onclick="eliminarArchivo(${index})">Eliminar</button>
+        </div>
+      `;
+      contenedor.appendChild(box);
+    });
+  }
+
+  function agregarArchivo() {
+    const titulo = document.getElementById('tituloNuevo').value.trim();
+    const descripcion = document.getElementById('descripcionNuevo').value.trim();
+    const archivo = document.getElementById('archivoNuevo').files[0];
+
+    if (!titulo || !descripcion || !archivo) {
+      alert('Por favor completa todos los campos.');
+      return;
+    }
+
+    const url = URL.createObjectURL(archivo);
+    archivos.push({ titulo, descripcion, url });
+    cerrarModal('modalAgregar');
+    renderizarArchivos();
+
+    // Reset form
+    document.getElementById('tituloNuevo').value = '';
+    document.getElementById('descripcionNuevo').value = '';
+    document.getElementById('archivoNuevo').value = '';
+  }
+
+  function editarArchivo(index) {
+    archivoEditando = index;
+    const archivo = archivos[index];
+    document.getElementById('editarTitulo').value = archivo.titulo;
+    document.getElementById('editarDescripcion').value = archivo.descripcion;
+    document.getElementById('modalEditar').style.display = 'flex';
+  }
+
+  function guardarEdicion() {
+    const titulo = document.getElementById('editarTitulo').value.trim();
+    const descripcion = document.getElementById('editarDescripcion').value.trim();
+
+    if (!titulo || !descripcion) {
+      alert('Completa ambos campos');
+      return;
+    }
+
+    archivos[archivoEditando].titulo = titulo;
+    archivos[archivoEditando].descripcion = descripcion;
+    cerrarModal('modalEditar');
+    renderizarArchivos();
+  }
+
+  function eliminarArchivo(index) {
+    if (confirm("¿Estás seguro de que deseas eliminar este archivo?")) {
+      archivos.splice(index, 1);
+      renderizarArchivos();
+    }
+  }
+
+  // Si quieres iniciar con algunos datos de prueba, puedes descomentar esto:
+  // archivos.push({ titulo: "Semana 01", descripcion: "PDF prueba", url: "archivos/Semana 01.pdf" });
+  // archivos.push({ titulo: "Semana 02", descripcion: "PDF 2", url: "archivos/Semana 02.pdf" });
+  // renderizarArchivos();
+</script>
+
+</body>
+</html>

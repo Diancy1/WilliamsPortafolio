@@ -1,0 +1,263 @@
+<?php
+session_start();
+if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'admin') {
+    header('Location: ../../login.php');
+    exit;
+}
+?>
+
+
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Portafolio</title>
+
+    <link rel="Shortcut icon" href="/recursos/img/Logo-portafolio.png">
+
+    <!--============================================= BoxIcons ======================================-->
+
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    <!--============================================= Fin BoxIcons ======================================-->
+
+    <!--============================================= Mi CSS ======================================-->
+
+    <link rel="stylesheet" href="/recursos/css/estilos.css">
+
+    <!--============================================= Fin Mi CSS ======================================-->
+
+</head>
+
+<!--============================================= Contenido Encabezado ======================================-->
+
+<header class="header">
+    <a href="#" class="logo"><img src="/recursos/img/Logo-portafolio.png" alt=""></a>
+
+    <i class='bx bx-menu' id="menu-icon"></i>
+
+    <nav class="navbar">
+        <a href="#home" class="active">Inicio</a>
+        <a href="#services">Servicios</a>
+        <a href="#portfolio">Proyectos</a>
+        <a href="#basededatos">Base de Datos</a>
+        <a href="#contact">Contacto</a>
+        <a href="/logout.php" class="btn btn-danger float-right">Cerrar Sesión</a>
+
+    </nav>
+</header>
+
+<!--============================================= Fin Contenido Encabezado ======================================-->
+
+<!--============================================= Contenido Incio ======================================-->
+
+<section class="home" id="home">
+    <div class="home-content">
+        <h3>Hola, <?= htmlspecialchars($_SESSION['nombre']) ?></h3>
+
+        <h3>y soy <span class="multiple-text"></span></h3>
+        <p>
+            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore dicta minus quisquam nesciunt iusto ea
+            recusandae possimus nisi veniam ratione?
+        </p>
+        <div class="social-media">
+            <a href="#"><i class='bx bxl-facebook'></i></a>
+            <a href="#"><i class='bx bxl-twitter'></i></a>
+            <a href="#"><i class='bx bxl-instagram'></i></a>
+            <a href="#"><i class='bx bxl-linkedin'></i></a>
+        </div>
+        <a href="#" class="btn">Descargar CV</a>
+    </div>
+    <div class="home-img">
+        <img src="/recursos/img/pngwing.com.png" alt="">
+    </div>
+</section>
+
+<!--============================================= Fin Contenido Incio ======================================-->
+
+<!--============================================= Fin Contenido Sobre Mi ======================================-->
+
+<!--============================================= Contenido Servicios ======================================-->
+
+<section class="services" id="services">
+    <h2 class="heading">Mis <span>Servicios</span></h2>
+
+    <div class="services-container">
+
+        <div class="services-box">
+            <i class='bx bx-paint'></i>
+            <h3>Diseñador Web</h3>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ratione fugiat magnam nostrum eum dolor hic
+                dicta voluptatem, id vitae.
+            </p>
+            <a href="Sub-Categorias/Mis Servicios HTML/DiseñoWeb.html" class="btn">Saber Más</a>
+        </div>
+
+        <div class="services-box">
+            <i class='bx bx-code-alt'></i>
+            <h3>Programador Web</h3>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ratione fugiat magnam nostrum eum dolor hic
+                dicta voluptatem, id vitae.
+            </p>
+            <a href="Sub-Categorias/Mis Servicios HTML/ProgramadorWeb.html" class="btn">Saber Más</a>
+        </div>
+
+        <div class="services-box">
+            <i class='bx bxl-blender'></i>
+            <h3>Animación Grafica</h3>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ratione fugiat magnam nostrum eum dolor hic
+                dicta voluptatem, id vitae.
+            </p>
+            <a href="Sub-Categorias/Mis Servicios HTML/Animacion.html" class="btn">Saber Más</a>
+        </div>
+
+        <div class="services-box">
+            <i class='bx bx-candles'></i>
+            <h3>Binance</h3>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ratione fugiat magnam nostrum eum dolor hic
+                dicta voluptatem, id vitae.
+            </p>
+            <a href="Sub-Categorias/Mis Servicios HTML/Binance.html" class="btn">Saber Más</a>
+        </div>
+
+        <div class="services-box">
+            <i class='bx bxs-cube-alt'></i>
+            <h3>Dibujo Técnico</h3>
+            <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Sed ratione fugiat magnam nostrum eum dolor hic
+                dicta voluptatem, id vitae.
+            </p>
+            <a href="Sub-Categorias/Mis Servicios HTML/Dibujo.html" class="btn">Saber Más</a>
+        </div>
+    </div>
+</section>
+
+<!--============================================= Fin Contenido Servicios ======================================-->
+
+<!--=============================================  Contenido Base de Datos ======================================-->
+
+<section class="basededatos" id="basededatos">
+  <h2 class="heading">Mis <span>Servicios</span></h2>
+
+  <div class="basededatos-container" id="archivos-container">
+    <!-- Aquí se cargarán los archivos dinámicamente -->
+  </div>
+</section>
+
+<script>
+  const rutaArchivos = 'uploads/archivos'; // Ruta donde están tus PDF y tu archivos.json
+
+  async function obtenerArchivos() {
+    try {
+      const response = await fetch(`${rutaArchivos}/archivos.json`);
+      const archivos = await response.json();
+
+      // Ordenar por título
+      archivos.sort((a, b) => a.titulo.localeCompare(b.titulo));
+
+      const contenedor = document.getElementById('archivos-container');
+      contenedor.innerHTML = '';
+
+      archivos.forEach(archivo => {
+        const box = document.createElement('div');
+        box.className = 'basededatos-box';
+        box.innerHTML = `
+          <i class='bx bxs-file-pdf'></i>
+          <h3>${archivo.titulo}</h3>
+          <p>${archivo.descripcion}</p>
+          <div style="display: flex; gap: 10px;">
+            <a href="${rutaArchivos}/${archivo.archivo}" target="_blank" class="btn">Ver</a>
+            <a href="${rutaArchivos}/${archivo.archivo}" download class="btn">Descargar</a>
+          </div>
+        `;
+        contenedor.appendChild(box);
+      });
+    } catch (error) {
+      console.error("Error al cargar archivos:", error);
+    }
+  }
+
+  obtenerArchivos();
+</script>
+
+
+
+
+
+
+<!--============================================= Fin Contenido Proyectos ======================================-->
+
+<!--============================================= Fin Contenido Contacto ======================================-->
+
+<section class="contact" id="contact">
+    <h2 class="heading">¿Quieres Trabajar Conmigo? <span> Contactame!</span></h2>
+    <form action="#">
+        <div class="input-box">
+            <input type="text" placeholder="Nombre Completo...">
+            <input type="email" placeholder="Correo Electronico...">
+        </div>
+        <div class="input-box">
+            <input type="number" placeholder="Numero Teléfono...">
+            <input type="email" placeholder="Asunto del Correo Electronico...">
+        </div>
+        <textarea name="" id="" cols="30" rows="10" placeholder="Tu Mensaje..."></textarea>
+        <input type="submit" value="Enviar Mensaje" class="btn">
+    </form>
+</section>
+
+<!--============================================= Contenido Contacto ======================================-->
+
+<!--============================================= Footer ======================================-->
+
+<footer class="footer">
+    <div class="footer-text">
+        <p>
+            Copyright &copy; 2024 by Williams Atao Paucar | Todos los Derechos Reservados!.
+        </p>
+    </div>
+    <div class="footer-iconTop">
+        <a href="#home"><i class='bx bx-up-arrow-alt'></i></a>
+    </div>
+</footer>
+
+<!--============================================= Fin Footer ======================================-->
+
+<!--============================================= Revelación de desplazamiento (SCROLLREVEAL) ======================================-->
+
+<script src="https://unpkg.com/scrollreveal"></script>
+
+<!--=========================================== Fin Revelación de desplazamiento (SCROLLREVEAL)  ===================================-->
+
+<!--============================================= Type.JS ======================================-->
+
+<script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
+
+<!--============================================= Fin Type.js ======================================-->
+
+<!--============================================= Mi JavaScript ======================================-->
+
+<script src="/recursos/js/scripts.js"></script>
+
+<!--============================================= Fin Mi JavaScript ======================================-->
+
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
