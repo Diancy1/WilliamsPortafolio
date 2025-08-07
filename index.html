@@ -144,11 +144,11 @@
 </section>
 
 <script>
-  const rutaArchivos = 'uploads/archivos'; // Ruta donde están tus PDF y tu archivos.json
+  const rutaArchivos = 'archivos'; // Ruta donde están tus PDF y tu archivos.json
 
   async function obtenerArchivos() {
     try {
-      const response = await fetch(`${rutaArchivos}/archivos.json`);
+      const response = await fetch(`${rutaArchivos}/data.json`);
       const archivos = await response.json();
 
       // Ordenar por título

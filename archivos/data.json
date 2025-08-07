@@ -1,0 +1,17 @@
+[
+  {
+    "titulo": "Semana 01",
+    "descripcion": "Contenido de la semana 01",
+    "archivo": "Semana 01.pdf"
+  },
+  {
+    "titulo": "Semana 02",
+    "descripcion": "Contenido de la semana 02",
+    "archivo": "Semana 02.pdf"
+  },
+  {
+    "titulo": "Semana 03",
+    "descripcion": "Contenido de la semana 03",
+    "archivo": "Semana 03.pdf"
+  }
+]
