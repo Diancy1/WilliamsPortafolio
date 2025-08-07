@@ -1,12 +1,3 @@
-<?php
-session_start();
-if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'admin') {
-    header('Location: ../../login.php');
-    exit;
-}
-?>
-
-
 <!DOCTYPE html>
 <html lang="es">
 
@@ -27,7 +18,7 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'admin') {
 
     <!--============================================= Mi CSS ======================================-->
 
-    <link rel="stylesheet" href="/recursos/css/estilos.css">
+    <link rel="stylesheet" href="/css/index.css">
 
     <!--============================================= Fin Mi CSS ======================================-->
 
@@ -57,7 +48,7 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'admin') {
 
 <section class="home" id="home">
     <div class="home-content">
-        <h3>Hola, <?= htmlspecialchars($_SESSION['nombre']) ?></h3>
+        <h3>Hola, soy <span>Exar Williams</span></h3>
 
         <h3>y soy <span class="multiple-text"></span></h3>
         <p>
@@ -244,7 +235,7 @@ if (!isset($_SESSION['id']) || $_SESSION['rol'] !== 'admin') {
 
 <!--============================================= Mi JavaScript ======================================-->
 
-<script src="/recursos/js/scripts.js"></script>
+<script src="/js/index.js"></script>
 
 <!--============================================= Fin Mi JavaScript ======================================-->
 
