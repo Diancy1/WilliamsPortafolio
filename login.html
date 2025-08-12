@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Iniciar Sesión</title>
+
+<!-- Boxicons -->
+<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+
+<style>
+:root {
+  --bg-color: #1f242d;
+  --second-bg-color: #323946;
+  --text-color: #fff;
+  --main-color: #0ef;
+}
+
+/* Fondo y centrado */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(135deg, var(--bg-color), var(--second-bg-color));
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Contenedor del login */
+.login-container {
+  background: rgba(50, 57, 70, 0.85);
+  padding: 2.5rem;
+  border-radius: 20px;
+  width: 350px;
+  box-shadow: 0 0 25px rgba(0, 238, 255, 0.3);
+  text-align: center;
+  backdrop-filter: blur(8px);
+  transition: transform 0.3s ease;
+}
+.login-container:hover {
+  transform: translateY(-5px);
+}
+
+.login-container h2 {
+  color: var(--main-color);
+  margin-bottom: 2rem;
+  font-size: 2.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+/* Inputs */
+.input-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+.input-group input {
+  width: 75%;
+  padding: 12px 40px;
+  background: transparent;
+  border: 2px solid var(--main-color);
+  border-radius: 10px;
+  outline: none;
+  color: var(--text-color);
+  font-size: 1rem;
+  transition: 0.3s;
+}
+.input-group input:focus {
+  border-color: #00c4cc;
+  box-shadow: 0 0 8px var(--main-color);
+}
+.input-group i {
+  position: absolute;
+  top: 50%;
+  left: 12px;
+  transform: translateY(-50%);
+  color: var(--main-color);
+  font-size: 1.3rem;
+}
+
+/* Botón */
+.btn {
+  background: var(--main-color);
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 10px;
+  color: #000;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: 0.3s;
+  font-weight: bold;
+}
+.btn:hover {
+  background: #00c4cc;
+  box-shadow: 0 0 12px var(--main-color);
+}
+
+/* Mensaje de error */
+#mensaje-error {
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-container {
+    width: 90%;
+    padding: 2rem;
+  }
+}
+@media (max-width: 450px) {
+  .login-container h2 {
+    font-size: 1.8rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="login-container">
+    <h2><i class='bx bx-lock-alt'></i> Iniciar Sesión</h2>
+    <form id="loginForm">
+        <div class="input-group">
+            <i class='bx bxs-user'></i>
+            <input type="text" id="usuario" placeholder="Usuario" required>
+        </div>
+        <div class="input-group">
+            <i class='bx bxs-lock'></i>
+            <input type="password" id="password" placeholder="Contraseña" required>
+        </div>
+        <button type="submit" class="btn">Ingresar</button>
+        <p id="mensaje-error" style="color:red; display:none;">Usuario o contraseña incorrectos</p>
+    </form>
+</div>
+
+<script>
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const usuario = document.getElementById('usuario').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    // Usuario y contraseña de prueba
+    const usuarioValido = "admin";
+    const passwordValido = "1234";
+
+    if (usuario === usuarioValido && password === passwordValido) {
+        window.location.href = "admin.html"; // Redirige a panel de admin
+    } else {
+        document.getElementById('mensaje-error').style.display = 'block';
+    }
+});
+</script>
+
+</body>
+</html>
