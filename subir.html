@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Subir Archivos</title>
     <link rel="stylesheet" href="subir.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
     <style>
       :root {
         --bg-color: #1f242d;
@@ -54,7 +57,9 @@
         font-weight: bold;
         transition: 0.3s;
       }
-      .btn-primary:hover { opacity: 0.8; }
+      .btn-primary:hover {
+        opacity: 0.8;
+      }
 
       .btn-secondary {
         background: #2b3a67;
@@ -65,7 +70,9 @@
         text-decoration: none;
         transition: 0.3s;
       }
-      .btn-secondary:hover { background: #1e294e; }
+      .btn-secondary:hover {
+        background: #1e294e;
+      }
 
       .card-container {
         display: grid;
@@ -82,8 +89,13 @@
         text-align: center;
       }
 
-      .card h3 { margin-bottom: 5px; }
-      .card p { font-size: 0.9rem; margin-bottom: 10px; }
+      .card h3 {
+        margin-bottom: 5px;
+      }
+      .card p {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+      }
 
       .card-actions {
         display: flex;
@@ -100,7 +112,9 @@
         cursor: pointer;
         transition: 0.3s;
       }
-      .card-actions button:hover { opacity: 0.8; }
+      .card-actions button:hover {
+        opacity: 0.8;
+      }
 
       .modal {
         display: none;
@@ -123,8 +137,13 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       }
 
-      .modal-content h2 { margin-bottom: 15px; }
-      .modal-content label { display: block; margin-top: 10px; }
+      .modal-content h2 {
+        margin-bottom: 15px;
+      }
+      .modal-content label {
+        display: block;
+        margin-top: 10px;
+      }
       .modal-content input {
         width: 100%;
         padding: 8px;
@@ -139,21 +158,153 @@
         cursor: pointer;
         color: var(--main-color);
       }
+
+      .basededatos {
+        padding: 60px 20px;
+        background: var(--bg-color);
+        text-align: center;
+      }
+
+      .basededatos .heading {
+        font-size: 2.5rem;
+        margin-bottom: 40px;
+        color: var(--text-color);
+      }
+
+      .basededatos .heading span {
+        color: var(--main-color);
+      }
+
+      .basededatos-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+      }
+
+      .basededatos-box {
+        background: var(--second-bg-color);
+        border-radius: 15px;
+        padding: 20px;
+        color: var(--text-color);
+        text-align: center;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .basededatos-box i {
+        font-size: 3rem;
+        color: var(--main-color);
+        margin-bottom: 15px;
+      }
+
+      .basededatos-box h3 {
+        margin-bottom: 10px;
+        font-size: 1.3rem;
+      }
+
+      .basededatos-box p {
+        font-size: 0.9rem;
+        opacity: 0.8;
+        margin-bottom: 15px;
+      }
+
+      .basededatos-box .btn {
+        display: inline-block;
+        background: var(--main-color);
+        color: var(--bg-color);
+        padding: 8px 15px;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+
+      .basededatos-box .btn:hover {
+        background: #08cfcf;
+        transform: scale(1.05);
+      }
+
+      .basededatos-box:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      }
+      /* Centrar los botones */
+      .acciones {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 10px;
+      }
+
+      /* Botones uniformes */
+      .acciones .btn {
+        min-width: 100px;
+        text-align: center;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <header class="header">
       <h1>Subir Archivos</h1>
       <div class="header-buttons">
-        <a href="admin.html" class="btn-secondary"><i class="fas fa-arrow-left"></i> Volver al Panel</a>
-        <a href="ver.html" class="btn-secondary"><i class="fas fa-eye"></i> Ver Archivos</a>
-        <button id="btnSubir" class="btn-primary"><i class="fas fa-upload"></i> Subir Archivo</button>
+        <a href="admin.html" class="btn-secondary"
+          ><i class="fas fa-arrow-left"></i> Volver al Panel</a
+        >
+        <a href="ver.html" class="btn-secondary"
+          ><i class="fas fa-eye"></i> Ver Archivos</a
+        >
+        <button id="btnSubir" class="btn-primary">
+          <i class="fas fa-upload"></i> Subir Archivo
+        </button>
       </div>
     </header>
 
     <main>
       <section id="listaArchivos" class="card-container">
         <!-- Archivos subidos -->
+        <section class="basededatos" id="basededatos">
+          <h2 class="heading">Mis <span>Proyectos</span></h2>
+
+          <div class="basededatos-container" id="archivos-container">
+            <!-- Aquí se cargarán los archivos dinámicamente -->
+          </div>
+        </section>
+
+        <script>
+          const rutaArchivos = "archivos"; // Ruta donde están tus PDF y tu archivos.json
+
+          async function obtenerArchivos() {
+            try {
+              const response = await fetch(`${rutaArchivos}/data.json`);
+              const archivos = await response.json();
+
+              // Ordenar por título
+              archivos.sort((a, b) => a.titulo.localeCompare(b.titulo));
+
+              const contenedor = document.getElementById("archivos-container");
+              contenedor.innerHTML = "";
+
+              archivos.forEach((archivo) => {
+                const box = document.createElement("div");
+                box.className = "basededatos-box";
+                box.innerHTML = `
+          <i class='bx bxs-file-pdf'></i>
+          <h3>${archivo.titulo}</h3>
+          <p>${archivo.descripcion}</p>
+          <div class="acciones">
+            <a href="${rutaArchivos}/${archivo.archivo}" target="_blank" class="btn">Ver</a>
+            <a href="${rutaArchivos}/${archivo.archivo}" download class="btn">Descargar</a>
+          </div>
+        `;
+                contenedor.appendChild(box);
+              });
+            } catch (error) {
+              console.error("Error al cargar archivos:", error);
+            }
+          }
+
+          obtenerArchivos();
+        </script>
       </section>
     </main>
 
@@ -202,66 +353,72 @@
       </div>
     </div>
 
-<script>
-const listaArchivos = document.getElementById("listaArchivos");
-const modalSubir = document.getElementById("modalSubir");
-const modalEditar = document.getElementById("modalEditar");
-const btnSubir = document.getElementById("btnSubir");
-const closeSubir = document.getElementById("closeSubir");
-const closeEditar = document.getElementById("closeEditar");
+    <script>
+      const listaArchivos = document.getElementById("listaArchivos");
+      const modalSubir = document.getElementById("modalSubir");
+      const modalEditar = document.getElementById("modalEditar");
+      const btnSubir = document.getElementById("btnSubir");
+      const closeSubir = document.getElementById("closeSubir");
+      const closeEditar = document.getElementById("closeEditar");
 
-let archivos = [];
-let idActual = null;
+      let archivos = [];
+      let idActual = null;
 
-// Abrir y cerrar modales
-btnSubir.onclick = () => (modalSubir.style.display = "block");
-closeSubir.onclick = () => (modalSubir.style.display = "none");
-closeEditar.onclick = () => (modalEditar.style.display = "none");
+      // Abrir y cerrar modales
+      btnSubir.onclick = () => (modalSubir.style.display = "block");
+      closeSubir.onclick = () => (modalSubir.style.display = "none");
+      closeEditar.onclick = () => (modalEditar.style.display = "none");
 
-window.onclick = (e) => {
-  if (e.target === modalSubir) modalSubir.style.display = "none";
-  if (e.target === modalEditar) modalEditar.style.display = "none";
-};
+      window.onclick = (e) => {
+        if (e.target === modalSubir) modalSubir.style.display = "none";
+        if (e.target === modalEditar) modalEditar.style.display = "none";
+      };
 
-// Subir archivo
-document.getElementById("formSubir").addEventListener("submit", function (e) {
-    e.preventDefault();
+      // Subir archivo
+      document
+        .getElementById("formSubir")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
 
-    const archivoInput = document.getElementById("archivo").files[0];
-    const nuevoArchivo = {
-        id: Date.now(),
-        titulo: document.getElementById("titulo").value,
-        semana: document.getElementById("semana").value,
-        fecha: document.getElementById("fecha").value,
-        nombreArchivo: archivoInput.name,
-        url: URL.createObjectURL(archivoInput) // URL temporal
-    };
+          const archivoInput = document.getElementById("archivo").files[0];
+          const nuevoArchivo = {
+            id: Date.now(),
+            titulo: document.getElementById("titulo").value,
+            semana: document.getElementById("semana").value,
+            fecha: document.getElementById("fecha").value,
+            nombreArchivo: archivoInput.name,
+            url: URL.createObjectURL(archivoInput), // URL temporal
+          };
 
-    archivos.push(nuevoArchivo);
-    renderArchivos();
-    modalSubir.style.display = "none";
-    this.reset();
-});
+          archivos.push(nuevoArchivo);
+          renderArchivos();
+          modalSubir.style.display = "none";
+          this.reset();
+        });
 
-// Editar archivo
-document.getElementById("formEditar").addEventListener("submit", function (e) {
-    e.preventDefault();
-    const index = archivos.findIndex((a) => a.id === idActual);
-    archivos[index].titulo = document.getElementById("editarTitulo").value;
-    archivos[index].semana = document.getElementById("editarSemana").value;
-    archivos[index].fecha = document.getElementById("editarFecha").value;
-    renderArchivos();
-    modalEditar.style.display = "none";
-});
+      // Editar archivo
+      document
+        .getElementById("formEditar")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const index = archivos.findIndex((a) => a.id === idActual);
+          archivos[index].titulo =
+            document.getElementById("editarTitulo").value;
+          archivos[index].semana =
+            document.getElementById("editarSemana").value;
+          archivos[index].fecha = document.getElementById("editarFecha").value;
+          renderArchivos();
+          modalEditar.style.display = "none";
+        });
 
-// Renderizar archivos
-function renderArchivos() {
-    archivos.sort((a, b) => Number(a.semana) - Number(b.semana));
-    listaArchivos.innerHTML = "";
-    archivos.forEach((archivo) => {
-        const card = document.createElement("div");
-        card.classList.add("card");
-        card.innerHTML = `
+      // Renderizar archivos
+      function renderArchivos() {
+        archivos.sort((a, b) => Number(a.semana) - Number(b.semana));
+        listaArchivos.innerHTML = "";
+        archivos.forEach((archivo) => {
+          const card = document.createElement("div");
+          card.classList.add("card");
+          card.innerHTML = `
             <h3>${archivo.titulo}</h3>
             <p>Semana: ${archivo.semana}</p>
             <p>Fecha: ${archivo.fecha}</p>
@@ -273,45 +430,45 @@ function renderArchivos() {
                 <button onclick="eliminarArchivo(${archivo.id})"><i class="fas fa-trash"></i></button>
             </div>
         `;
-        listaArchivos.appendChild(card);
-    });
-}
+          listaArchivos.appendChild(card);
+        });
+      }
 
-// Ver PDF
-function verArchivo(id) {
-    const archivo = archivos.find(a => a.id === id);
-    if (archivo) {
-        window.open(archivo.url, "_blank");
-    }
-}
+      // Ver PDF
+      function verArchivo(id) {
+        const archivo = archivos.find((a) => a.id === id);
+        if (archivo) {
+          window.open(archivo.url, "_blank");
+        }
+      }
 
-// Descargar PDF
-function descargarArchivo(id) {
-    const archivo = archivos.find(a => a.id === id);
-    if (archivo) {
-        const enlace = document.createElement("a");
-        enlace.href = archivo.url;
-        enlace.download = archivo.nombreArchivo;
-        enlace.click();
-    }
-}
+      // Descargar PDF
+      function descargarArchivo(id) {
+        const archivo = archivos.find((a) => a.id === id);
+        if (archivo) {
+          const enlace = document.createElement("a");
+          enlace.href = archivo.url;
+          enlace.download = archivo.nombreArchivo;
+          enlace.click();
+        }
+      }
 
-// Editar
-function editarArchivo(id) {
-    idActual = id;
-    const archivo = archivos.find((a) => a.id === id);
-    document.getElementById("editarId").value = archivo.id;
-    document.getElementById("editarTitulo").value = archivo.titulo;
-    document.getElementById("editarSemana").value = archivo.semana;
-    document.getElementById("editarFecha").value = archivo.fecha;
-    modalEditar.style.display = "block";
-}
+      // Editar
+      function editarArchivo(id) {
+        idActual = id;
+        const archivo = archivos.find((a) => a.id === id);
+        document.getElementById("editarId").value = archivo.id;
+        document.getElementById("editarTitulo").value = archivo.titulo;
+        document.getElementById("editarSemana").value = archivo.semana;
+        document.getElementById("editarFecha").value = archivo.fecha;
+        modalEditar.style.display = "block";
+      }
 
-// Eliminar
-function eliminarArchivo(id) {
-    archivos = archivos.filter((a) => a.id !== id);
-    renderArchivos();
-}
-</script>
-</body>
+      // Eliminar
+      function eliminarArchivo(id) {
+        archivos = archivos.filter((a) => a.id !== id);
+        renderArchivos();
+      }
+    </script>
+  </body>
 </html>
