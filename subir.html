@@ -2,10 +2,12 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <title>Gestión de Archivos</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Subir Archivos</title>
+    <link rel="stylesheet" href="subir.css" />
     <link
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/boxicons@2.1.4/css/boxicons.min.css"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
     />
     <style>
       :root {
@@ -15,252 +17,319 @@
         --main-color: #0ef;
       }
 
-      body {
-        background: var(--bg-color);
-        color: var(--text-color);
-        font-family: Arial, sans-serif;
+      * {
         margin: 0;
         padding: 0;
+        box-sizing: border-box;
       }
 
-      .heading {
-        text-align: center;
-        padding: 1rem;
+      body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background-color: var(--bg-color);
+        color: var(--text-color);
+        min-height: 100vh;
       }
 
-      .heading span {
-        color: var(--main-color);
-      }
-
-      .basededatos-container {
+      /* ===== Header ===== */
+      .header {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 1rem;
-        padding: 1rem;
+        justify-content: space-between;
+        align-items: center;
+        background-color: var(--second-bg-color);
+        padding: 15px;
+        border-radius: 10px;
+        margin: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
       }
 
-      .basededatos-box {
-        background: var(--second-bg-color);
-        padding: 1rem;
-        border-radius: 8px;
-        width: 250px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      .header-buttons {
+        display: flex;
+        gap: 10px;
+        align-items: center;
       }
 
-      .basededatos-box i {
-        font-size: 2rem;
-        color: var(--main-color);
-      }
-
-      .btn {
+      .btn-primary {
         background: var(--main-color);
         color: var(--bg-color);
-        padding: 0.4rem 1rem;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: 0.3s;
+      }
+      .btn-primary:hover {
+        opacity: 0.8;
+      }
+
+      .btn-secondary {
+        background: #2b3a67;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 8px;
         text-decoration: none;
-        border-radius: 5px;
-        display: inline-block;
+        transition: 0.3s;
+      }
+      .btn-secondary:hover {
+        background: #1e294e;
       }
 
-      .btn:hover {
-        background: #00c8ff;
+      /* ===== Cards ===== */
+      .card-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 20px;
       }
 
-      .acciones {
+      .card {
+        background-color: var(--second-bg-color);
+        padding: 15px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        text-align: center;
+      }
+
+      .card h3 {
+        margin-bottom: 5px;
+      }
+
+      .card p {
+        font-size: 0.9rem;
+        margin-bottom: 10px;
+      }
+
+      .card-actions {
         display: flex;
-        gap: 0.5rem;
-        margin-top: 0.5rem;
+        justify-content: center;
+        gap: 8px;
       }
 
-      #agregarBtn {
-        margin: 1rem auto;
-        display: block;
+      .card-actions button {
         background: var(--main-color);
         border: none;
-        padding: 0.6rem 1.2rem;
         color: var(--bg-color);
-        border-radius: 8px;
-        font-weight: bold;
+        padding: 5px 8px;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+      .card-actions button:hover {
+        opacity: 0.8;
       }
 
+      /* ===== Modal ===== */
       .modal {
+        display: none;
         position: fixed;
-        top: 0;
+        z-index: 1000;
         left: 0;
+        top: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.7);
-        display: none;
-        justify-content: center;
-        align-items: center;
+        background: rgba(0, 0, 0, 0.6);
       }
 
       .modal-content {
         background: var(--second-bg-color);
-        padding: 2rem;
-        border-radius: 10px;
+        margin: 10% auto;
+        padding: 20px;
+        border-radius: 12px;
         width: 90%;
         max-width: 400px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       }
 
-      .modal-content h3 {
-        margin-top: 0;
+      .modal-content h2 {
+        margin-bottom: 15px;
       }
 
-      .modal-content input,
-      .modal-content textarea {
+      .modal-content label {
+        display: block;
+        margin-top: 10px;
+      }
+
+      .modal-content input {
         width: 100%;
-        padding: 0.5rem;
-        margin-bottom: 1rem;
-        border-radius: 4px;
+        padding: 8px;
+        margin-top: 5px;
+        border-radius: 6px;
         border: none;
       }
 
-      .modal-content .btn {
-        margin-right: 10px;
+      .close {
+        float: right;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: var(--main-color);
       }
     </style>
   </head>
   <body>
-    <section class="basededatos" id="basededatos">
-      <h2 class="heading">Mis <span>Archivos</span></h2>
-
-      <button id="agregarBtn">+ Agregar Archivo</button>
-
-      <div class="basededatos-container" id="archivos-container">
-        <!-- Aquí se cargarán los archivos dinámicamente -->
-      </div>
-    </section>
-
-    <!-- Modal Agregar -->
-    <div class="modal" id="modalAgregar">
-      <div class="modal-content">
-        <h3>Agregar nuevo archivo</h3>
-        <input type="text" id="tituloNuevo" placeholder="Título" />
-        <textarea id="descripcionNuevo" placeholder="Descripción"></textarea>
-        <input type="file" id="archivoNuevo" />
-        <button class="btn" onclick="agregarArchivo()">Agregar</button>
-        <button class="btn" onclick="cerrarModal('modalAgregar')">
-          Cancelar
+    <header class="header">
+      <h1>Subir Archivos</h1>
+      <div class="header-buttons">
+        <a href="admin.html" class="btn-secondary"
+          ><i class="fas fa-arrow-left"></i> Volver al Panel</a
+        >
+        <a href="ver.html" class="btn-secondary"
+          ><i class="fas fa-eye"></i> Ver Archivos</a
+        >
+        <button id="btnSubir" class="btn-primary">
+          <i class="fas fa-upload"></i> Subir Archivo
         </button>
+      </div>
+    </header>
+
+    <main>
+      <section id="listaArchivos" class="card-container">
+        <!-- Archivos subidos se insertan aquí -->
+      </section>
+    </main>
+
+    <!-- Modal Subir -->
+    <div id="modalSubir" class="modal">
+      <div class="modal-content">
+        <span class="close" id="closeSubir">&times;</span>
+        <h2>Subir Archivo</h2>
+        <form id="formSubir">
+          <label for="titulo">Título:</label>
+          <input type="text" id="titulo" required />
+
+          <label for="semana">Semana:</label>
+          <input type="number" id="semana" min="1" required />
+
+          <label for="fecha">Fecha:</label>
+          <input type="date" id="fecha" required />
+
+          <label for="archivo">Archivo:</label>
+          <input type="file" id="archivo" required />
+
+          <button type="submit" class="btn-primary">Guardar</button>
+        </form>
       </div>
     </div>
 
     <!-- Modal Editar -->
-    <div class="modal" id="modalEditar">
+    <div id="modalEditar" class="modal">
       <div class="modal-content">
-        <h3>Editar archivo</h3>
-        <input type="text" id="editarTitulo" />
-        <textarea id="editarDescripcion"></textarea>
-        <button class="btn" onclick="guardarEdicion()">Guardar</button>
-        <button class="btn" onclick="cerrarModal('modalEditar')">
-          Cancelar
-        </button>
+        <span class="close" id="closeEditar">&times;</span>
+        <h2>Editar Archivo</h2>
+        <form id="formEditar">
+          <input type="hidden" id="editarId" />
+
+          <label for="editarTitulo">Título:</label>
+          <input type="text" id="editarTitulo" required />
+
+          <label for="editarSemana">Semana:</label>
+          <input type="number" id="editarSemana" min="1" required />
+
+          <label for="editarFecha">Fecha:</label>
+          <input type="date" id="editarFecha" required />
+
+          <button type="submit" class="btn-primary">Actualizar</button>
+        </form>
       </div>
     </div>
 
-    <section class="basededatos" id="basededatos">
-      <button id="agregarBtn">
-        <a href="/admin.html">Volver al panel</a>
-    </button>
-    </section>
-
     <script>
+      const listaArchivos = document.getElementById("listaArchivos");
+      const modalSubir = document.getElementById("modalSubir");
+      const modalEditar = document.getElementById("modalEditar");
+      const btnSubir = document.getElementById("btnSubir");
+      const closeSubir = document.getElementById("closeSubir");
+      const closeEditar = document.getElementById("closeEditar");
+
       let archivos = [];
-      let archivoEditando = null;
+      let idActual = null;
 
-      document.getElementById("agregarBtn").addEventListener("click", () => {
-        document.getElementById("modalAgregar").style.display = "flex";
-      });
+      // Abrir modal subir
+      btnSubir.onclick = () => (modalSubir.style.display = "block");
+      closeSubir.onclick = () => (modalSubir.style.display = "none");
+      closeEditar.onclick = () => (modalEditar.style.display = "none");
 
-      function cerrarModal(id) {
-        document.getElementById(id).style.display = "none";
-      }
+      window.onclick = (e) => {
+        if (e.target === modalSubir) modalSubir.style.display = "none";
+        if (e.target === modalEditar) modalEditar.style.display = "none";
+      };
 
-      function renderizarArchivos() {
-        const contenedor = document.getElementById("archivos-container");
-        contenedor.innerHTML = "";
-        archivos.forEach((archivo, index) => {
-          const box = document.createElement("div");
-          box.className = "basededatos-box";
-          box.innerHTML = `
-        <i class='bx bxs-file-pdf'></i>
-        <h3>${archivo.titulo}</h3>
-        <p>${archivo.descripcion}</p>
-        <div class="acciones">
-          <a href="${archivo.url}" target="_blank" class="btn">Ver</a>
-          <a href="${archivo.url}" download class="btn">Descargar</a>
-        </div>
-        <div class="acciones">
-          <button class="btn" onclick="editarArchivo(${index})">Editar</button>
-          <button class="btn" onclick="eliminarArchivo(${index})">Eliminar</button>
-        </div>
-      `;
-          contenedor.appendChild(box);
+      // Subir archivo
+      document
+        .getElementById("formSubir")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const nuevoArchivo = {
+            id: Date.now(),
+            titulo: document.getElementById("titulo").value,
+            semana: document.getElementById("semana").value,
+            fecha: document.getElementById("fecha").value,
+            nombreArchivo: document.getElementById("archivo").files[0].name,
+          };
+          archivos.push(nuevoArchivo);
+          renderArchivos();
+          modalSubir.style.display = "none";
+          this.reset();
+        });
+
+      // Editar archivo
+      document
+        .getElementById("formEditar")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          const index = archivos.findIndex((a) => a.id === idActual);
+          archivos[index].titulo =
+            document.getElementById("editarTitulo").value;
+          archivos[index].semana =
+            document.getElementById("editarSemana").value;
+          archivos[index].fecha = document.getElementById("editarFecha").value;
+          renderArchivos();
+          modalEditar.style.display = "none";
+        });
+
+      // Render archivos
+      function renderArchivos() {
+        archivos.sort((a, b) => Number(a.semana) - Number(b.semana));
+        listaArchivos.innerHTML = "";
+        archivos.forEach((archivo) => {
+          const card = document.createElement("div");
+          card.classList.add("card");
+          card.innerHTML = `
+            <h3>${archivo.titulo}</h3>
+            <p>Semana: ${archivo.semana}</p>
+            <p>Fecha: ${archivo.fecha}</p>
+            <p><i class="fas fa-file"></i> ${archivo.nombreArchivo}</p>
+            <div class="card-actions">
+                <button onclick="verArchivo(${archivo.id})"><i class="fas fa-eye"></i></button>
+                <button onclick="editarArchivo(${archivo.id})"><i class="fas fa-edit"></i></button>
+                <button onclick="descargarArchivo('${archivo.nombreArchivo}')"><i class="fas fa-download"></i></button>
+                <button onclick="eliminarArchivo(${archivo.id})"><i class="fas fa-trash"></i></button>
+            </div>
+        `;
+          listaArchivos.appendChild(card);
         });
       }
 
-      function agregarArchivo() {
-        const titulo = document.getElementById("tituloNuevo").value.trim();
-        const descripcion = document
-          .getElementById("descripcionNuevo")
-          .value.trim();
-        const archivo = document.getElementById("archivoNuevo").files[0];
-
-        if (!titulo || !descripcion || !archivo) {
-          alert("Por favor completa todos los campos.");
-          return;
-        }
-
-        const url = URL.createObjectURL(archivo);
-        archivos.push({ titulo, descripcion, url });
-        cerrarModal("modalAgregar");
-        renderizarArchivos();
-
-        // Reset form
-        document.getElementById("tituloNuevo").value = "";
-        document.getElementById("descripcionNuevo").value = "";
-        document.getElementById("archivoNuevo").value = "";
+      // Funciones de acción
+      function verArchivo(id) {
+        alert("Aquí mostrarías el archivo con ID: " + id);
       }
-
-      function editarArchivo(index) {
-        archivoEditando = index;
-        const archivo = archivos[index];
+      function editarArchivo(id) {
+        idActual = id;
+        const archivo = archivos.find((a) => a.id === id);
+        document.getElementById("editarId").value = archivo.id;
         document.getElementById("editarTitulo").value = archivo.titulo;
-        document.getElementById("editarDescripcion").value =
-          archivo.descripcion;
-        document.getElementById("modalEditar").style.display = "flex";
+        document.getElementById("editarSemana").value = archivo.semana;
+        document.getElementById("editarFecha").value = archivo.fecha;
+        modalEditar.style.display = "block";
       }
-
-      function guardarEdicion() {
-        const titulo = document.getElementById("editarTitulo").value.trim();
-        const descripcion = document
-          .getElementById("editarDescripcion")
-          .value.trim();
-
-        if (!titulo || !descripcion) {
-          alert("Completa ambos campos");
-          return;
-        }
-
-        archivos[archivoEditando].titulo = titulo;
-        archivos[archivoEditando].descripcion = descripcion;
-        cerrarModal("modalEditar");
-        renderizarArchivos();
+      function descargarArchivo(nombre) {
+        alert("Descargando: " + nombre);
       }
-
-      function eliminarArchivo(index) {
-        if (confirm("¿Estás seguro de que deseas eliminar este archivo?")) {
-          archivos.splice(index, 1);
-          renderizarArchivos();
-        }
+      function eliminarArchivo(id) {
+        archivos = archivos.filter((a) => a.id !== id);
+        renderArchivos();
       }
-      
-
-      // Si quieres iniciar con algunos datos de prueba, puedes descomentar esto:
-      // archivos.push({ titulo: "Semana 01", descripcion: "PDF prueba", url: "archivos/Semana 01.pdf" });
-      // archivos.push({ titulo: "Semana 02", descripcion: "PDF 2", url: "archivos/Semana 02.pdf" });
-      // renderizarArchivos();
     </script>
   </body>
 </html>

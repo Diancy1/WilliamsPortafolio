@@ -1,61 +1,64 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Panel de Administración</title>
-  <link rel="stylesheet" href="css/admin.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-<body>
-
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="logo">
-      <i class="fas fa-user-shield"></i>
-      <h2>Admin</h2>
-    </div>
-    <ul class="menu">
-      <li><a href="#"><i class="fas fa-tachometer-alt"></i> Dashboard</a></li>
-      <li><a href="#"><i class="fas fa-folder"></i> Archivos</a></li>
-      <li><a href="#"><i class="fas fa-users"></i> Usuarios</a></li>
-      <li><a href="#"><i class="fas fa-cogs"></i> Configuración</a></li>
-      <li><a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a></li>
-    </ul>
-  </aside>
-
-  <!-- Contenido principal -->
-  <main class="main-content">
-    <!-- Header -->
-    <header class="header">
-      <h1>Panel de Administración</h1>
-      <div class="user-info">
-        <i class="fas fa-bell"></i>
-        <i class="fas fa-user-circle"></i>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Panel de Administración</title>
+    <link rel="stylesheet" href="css/admin.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <i class="fas fa-user-shield"></i>
+        <h2>Admin</h2>
       </div>
-    </header>
+      <ul class="menu">
+        <li>
+          <a href="/subir.html"><i class="fas fa-folder"></i>Subir Archivos</a>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-eye"></i>Ver Archivos</a>
+        </li>
+        <li>
+          <a href="#"><i class="fas fa-sign-out-alt"></i> Cerrar Sesión</a>
+        </li>
+      </ul>
+    </aside>
 
-    <!-- Tarjetas -->
-    <section class="cards">
-      <div class="card">
-        <i class="fas fa-file-upload"></i>
-        <h3>Subir Archivos</h3>
-        <p>Gestiona y sube documentos al sistema.</p>
-      </div>
+    <!-- Contenido principal -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="header">
+        <h1>Panel de Administración</h1>
+        <div class="user-info">
+          <i class="fas fa-bell"></i>
+          <i class="fas fa-user-circle"></i>
+        </div>
+      </header>
 
-      <div class="card">
-        <i class="fas fa-database"></i>
-        <h3>Base de Datos</h3>
-        <p>Accede y modifica datos almacenados.</p>
-      </div>
+      <!-- Tarjetas -->
+      <section class="cards">
+        <div class="card">
+          <a href="#">
+            <i class="fas fa-folder"></i>
+            <h3>Subir Archivos</h3>
+          </a>
 
-      <div class="card">
-        <i class="fas fa-user-cog"></i>
-        <h3>Gestión de Usuarios</h3>
-        <p>Edita permisos y administra usuarios.</p>
-      </div>
-    </section>
-  </main>
-
-</body>
+          <p>Gestiona y sube documentos al sistema.</p>
+        </div>
+        <div class="card">
+          <a href="#">
+            <i class="fas fa-eye"></i>
+            <h3>Ver Archivos</h3>
+          </a>
+          <p>Gestiona y sube documentos al sistema.</p>
+        </div>
+      </section>
+    </main>
+  </body>
 </html>
