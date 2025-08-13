@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html lang="es">
-  <head>
+<head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Subir Archivos</title>
     <link rel="stylesheet" href="subir.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
     <style>
       :root {
         --bg-color: #1f242d;
@@ -30,7 +27,6 @@
         min-height: 100vh;
       }
 
-      /* ===== Header ===== */
       .header {
         display: flex;
         justify-content: space-between;
@@ -58,9 +54,7 @@
         font-weight: bold;
         transition: 0.3s;
       }
-      .btn-primary:hover {
-        opacity: 0.8;
-      }
+      .btn-primary:hover { opacity: 0.8; }
 
       .btn-secondary {
         background: #2b3a67;
@@ -71,11 +65,8 @@
         text-decoration: none;
         transition: 0.3s;
       }
-      .btn-secondary:hover {
-        background: #1e294e;
-      }
+      .btn-secondary:hover { background: #1e294e; }
 
-      /* ===== Cards ===== */
       .card-container {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -91,14 +82,8 @@
         text-align: center;
       }
 
-      .card h3 {
-        margin-bottom: 5px;
-      }
-
-      .card p {
-        font-size: 0.9rem;
-        margin-bottom: 10px;
-      }
+      .card h3 { margin-bottom: 5px; }
+      .card p { font-size: 0.9rem; margin-bottom: 10px; }
 
       .card-actions {
         display: flex;
@@ -115,11 +100,8 @@
         cursor: pointer;
         transition: 0.3s;
       }
-      .card-actions button:hover {
-        opacity: 0.8;
-      }
+      .card-actions button:hover { opacity: 0.8; }
 
-      /* ===== Modal ===== */
       .modal {
         display: none;
         position: fixed;
@@ -141,15 +123,8 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
       }
 
-      .modal-content h2 {
-        margin-bottom: 15px;
-      }
-
-      .modal-content label {
-        display: block;
-        margin-top: 10px;
-      }
-
+      .modal-content h2 { margin-bottom: 15px; }
+      .modal-content label { display: block; margin-top: 10px; }
       .modal-content input {
         width: 100%;
         padding: 8px;
@@ -165,26 +140,20 @@
         color: var(--main-color);
       }
     </style>
-  </head>
-  <body>
+</head>
+<body>
     <header class="header">
       <h1>Subir Archivos</h1>
       <div class="header-buttons">
-        <a href="admin.html" class="btn-secondary"
-          ><i class="fas fa-arrow-left"></i> Volver al Panel</a
-        >
-        <a href="ver.html" class="btn-secondary"
-          ><i class="fas fa-eye"></i> Ver Archivos</a
-        >
-        <button id="btnSubir" class="btn-primary">
-          <i class="fas fa-upload"></i> Subir Archivo
-        </button>
+        <a href="admin.html" class="btn-secondary"><i class="fas fa-arrow-left"></i> Volver al Panel</a>
+        <a href="ver.html" class="btn-secondary"><i class="fas fa-eye"></i> Ver Archivos</a>
+        <button id="btnSubir" class="btn-primary"><i class="fas fa-upload"></i> Subir Archivo</button>
       </div>
     </header>
 
     <main>
       <section id="listaArchivos" class="card-container">
-        <!-- Archivos subidos se insertan aquí -->
+        <!-- Archivos subidos -->
       </section>
     </main>
 
@@ -204,7 +173,7 @@
           <input type="date" id="fecha" required />
 
           <label for="archivo">Archivo:</label>
-          <input type="file" id="archivo" required />
+          <input type="file" id="archivo" accept="application/pdf" required />
 
           <button type="submit" class="btn-primary">Guardar</button>
         </form>
@@ -233,68 +202,66 @@
       </div>
     </div>
 
-    <script>
-      const listaArchivos = document.getElementById("listaArchivos");
-      const modalSubir = document.getElementById("modalSubir");
-      const modalEditar = document.getElementById("modalEditar");
-      const btnSubir = document.getElementById("btnSubir");
-      const closeSubir = document.getElementById("closeSubir");
-      const closeEditar = document.getElementById("closeEditar");
+<script>
+const listaArchivos = document.getElementById("listaArchivos");
+const modalSubir = document.getElementById("modalSubir");
+const modalEditar = document.getElementById("modalEditar");
+const btnSubir = document.getElementById("btnSubir");
+const closeSubir = document.getElementById("closeSubir");
+const closeEditar = document.getElementById("closeEditar");
 
-      let archivos = [];
-      let idActual = null;
+let archivos = [];
+let idActual = null;
 
-      // Abrir modal subir
-      btnSubir.onclick = () => (modalSubir.style.display = "block");
-      closeSubir.onclick = () => (modalSubir.style.display = "none");
-      closeEditar.onclick = () => (modalEditar.style.display = "none");
+// Abrir y cerrar modales
+btnSubir.onclick = () => (modalSubir.style.display = "block");
+closeSubir.onclick = () => (modalSubir.style.display = "none");
+closeEditar.onclick = () => (modalEditar.style.display = "none");
 
-      window.onclick = (e) => {
-        if (e.target === modalSubir) modalSubir.style.display = "none";
-        if (e.target === modalEditar) modalEditar.style.display = "none";
-      };
+window.onclick = (e) => {
+  if (e.target === modalSubir) modalSubir.style.display = "none";
+  if (e.target === modalEditar) modalEditar.style.display = "none";
+};
 
-      // Subir archivo
-      document
-        .getElementById("formSubir")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          const nuevoArchivo = {
-            id: Date.now(),
-            titulo: document.getElementById("titulo").value,
-            semana: document.getElementById("semana").value,
-            fecha: document.getElementById("fecha").value,
-            nombreArchivo: document.getElementById("archivo").files[0].name,
-          };
-          archivos.push(nuevoArchivo);
-          renderArchivos();
-          modalSubir.style.display = "none";
-          this.reset();
-        });
+// Subir archivo
+document.getElementById("formSubir").addEventListener("submit", function (e) {
+    e.preventDefault();
 
-      // Editar archivo
-      document
-        .getElementById("formEditar")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          const index = archivos.findIndex((a) => a.id === idActual);
-          archivos[index].titulo =
-            document.getElementById("editarTitulo").value;
-          archivos[index].semana =
-            document.getElementById("editarSemana").value;
-          archivos[index].fecha = document.getElementById("editarFecha").value;
-          renderArchivos();
-          modalEditar.style.display = "none";
-        });
+    const archivoInput = document.getElementById("archivo").files[0];
+    const nuevoArchivo = {
+        id: Date.now(),
+        titulo: document.getElementById("titulo").value,
+        semana: document.getElementById("semana").value,
+        fecha: document.getElementById("fecha").value,
+        nombreArchivo: archivoInput.name,
+        url: URL.createObjectURL(archivoInput) // URL temporal
+    };
 
-      // Render archivos
-      function renderArchivos() {
-        archivos.sort((a, b) => Number(a.semana) - Number(b.semana));
-        listaArchivos.innerHTML = "";
-        archivos.forEach((archivo) => {
-          const card = document.createElement("div");
-          card.classList.add("card");
-          card.innerHTML = `
+    archivos.push(nuevoArchivo);
+    renderArchivos();
+    modalSubir.style.display = "none";
+    this.reset();
+});
+
+// Editar archivo
+document.getElementById("formEditar").addEventListener("submit", function (e) {
+    e.preventDefault();
+    const index = archivos.findIndex((a) => a.id === idActual);
+    archivos[index].titulo = document.getElementById("editarTitulo").value;
+    archivos[index].semana = document.getElementById("editarSemana").value;
+    archivos[index].fecha = document.getElementById("editarFecha").value;
+    renderArchivos();
+    modalEditar.style.display = "none";
+});
+
+// Renderizar archivos
+function renderArchivos() {
+    archivos.sort((a, b) => Number(a.semana) - Number(b.semana));
+    listaArchivos.innerHTML = "";
+    archivos.forEach((archivo) => {
+        const card = document.createElement("div");
+        card.classList.add("card");
+        card.innerHTML = `
             <h3>${archivo.titulo}</h3>
             <p>Semana: ${archivo.semana}</p>
             <p>Fecha: ${archivo.fecha}</p>
@@ -302,34 +269,49 @@
             <div class="card-actions">
                 <button onclick="verArchivo(${archivo.id})"><i class="fas fa-eye"></i></button>
                 <button onclick="editarArchivo(${archivo.id})"><i class="fas fa-edit"></i></button>
-                <button onclick="descargarArchivo('${archivo.nombreArchivo}')"><i class="fas fa-download"></i></button>
+                <button onclick="descargarArchivo(${archivo.id})"><i class="fas fa-download"></i></button>
                 <button onclick="eliminarArchivo(${archivo.id})"><i class="fas fa-trash"></i></button>
             </div>
         `;
-          listaArchivos.appendChild(card);
-        });
-      }
+        listaArchivos.appendChild(card);
+    });
+}
 
-      // Funciones de acción
-      function verArchivo(id) {
-        alert("Aquí mostrarías el archivo con ID: " + id);
-      }
-      function editarArchivo(id) {
-        idActual = id;
-        const archivo = archivos.find((a) => a.id === id);
-        document.getElementById("editarId").value = archivo.id;
-        document.getElementById("editarTitulo").value = archivo.titulo;
-        document.getElementById("editarSemana").value = archivo.semana;
-        document.getElementById("editarFecha").value = archivo.fecha;
-        modalEditar.style.display = "block";
-      }
-      function descargarArchivo(nombre) {
-        alert("Descargando: " + nombre);
-      }
-      function eliminarArchivo(id) {
-        archivos = archivos.filter((a) => a.id !== id);
-        renderArchivos();
-      }
-    </script>
-  </body>
+// Ver PDF
+function verArchivo(id) {
+    const archivo = archivos.find(a => a.id === id);
+    if (archivo) {
+        window.open(archivo.url, "_blank");
+    }
+}
+
+// Descargar PDF
+function descargarArchivo(id) {
+    const archivo = archivos.find(a => a.id === id);
+    if (archivo) {
+        const enlace = document.createElement("a");
+        enlace.href = archivo.url;
+        enlace.download = archivo.nombreArchivo;
+        enlace.click();
+    }
+}
+
+// Editar
+function editarArchivo(id) {
+    idActual = id;
+    const archivo = archivos.find((a) => a.id === id);
+    document.getElementById("editarId").value = archivo.id;
+    document.getElementById("editarTitulo").value = archivo.titulo;
+    document.getElementById("editarSemana").value = archivo.semana;
+    document.getElementById("editarFecha").value = archivo.fecha;
+    modalEditar.style.display = "block";
+}
+
+// Eliminar
+function eliminarArchivo(id) {
+    archivos = archivos.filter((a) => a.id !== id);
+    renderArchivos();
+}
+</script>
+</body>
 </html>
