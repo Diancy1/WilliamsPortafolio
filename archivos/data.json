@@ -1,17 +1,52 @@
 [
   {
+    "titulo": "Manual de Instalación de MySQL",
+    "descripcion": "Manual para la instalación de MySQL",
+    "archivo": "Manual de Instalación de MySQL.pdf"
+  },
+  {
     "titulo": "Semana 01",
     "descripcion": "Contenido de la semana 01",
-    "archivo": "Semana 01.pdf"
+    "archivo": "Semana01.pdf"
   },
   {
     "titulo": "Semana 02",
     "descripcion": "Contenido de la semana 02",
-    "archivo": "Semana 02.pdf"
+    "archivo": "Semana02.pdf"
   },
   {
     "titulo": "Semana 03",
     "descripcion": "Contenido de la semana 03",
-    "archivo": "Semana 03.pdf"
+    "archivo": "Semana03.pdf"
+  },
+  {
+    "titulo": "Semana 04",
+    "descripcion": "Contenido de la semana 04",
+    "archivo": "Semana04.pdf"
+  },
+  {
+    "titulo": "Semana 05",
+    "descripcion": "Contenido de la semana 05",
+    "archivo": "Semana05.pdf"
+  },
+  {
+    "titulo": "Semana 06",
+    "descripcion": "Contenido de la semana 06",
+    "archivo": "Semana06.pdf"
+  },
+  {
+    "titulo": "Semana 07",
+    "descripcion": "Contenido de la semana 07",
+    "archivo": "Semana07.pdf"
+  },
+  {
+    "titulo": "Semana 08",
+    "descripcion": "Contenido de la semana 08",
+    "archivo": "Semana08.pdf"
+  },
+  {
+    "titulo": "Semana 15",
+    "descripcion": "Contenido de la semana 15",
+    "archivo": "Semana15.pdf"
   }
 ]
